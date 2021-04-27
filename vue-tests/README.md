@@ -1,0 +1,1 @@
+Testing [vue3-sfc-loader](https://github.com/FranckFreiburger/vue3-sfc-loader).
