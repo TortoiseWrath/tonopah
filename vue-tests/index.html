@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <meta charset="UTF-8">
 <title>Page Title</title>
+<script src="https://unpkg.com/vue@3"></script>
+<script src="https://unpkg.com/vue-router@4"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue3-sfc-loader@0.7.3/dist/vue3-sfc-loader.js"></script>
 <script type="module">
-	import * as Vue from 'https://unpkg.com/vue@3/dist/vue.runtime.esm-browser.prod.js'
-	import { loadModule } from 'https://cdn.jsdelivr.net/npm/vue3-sfc-loader@0.7.3/dist/vue3-sfc-loader.esm.js'
-
 	const options = {
 		moduleCache: {
-			vue: Vue
+			vue: Vue,
 		},
 		async getFile(url) {
 			console.log('get');
@@ -24,5 +24,28 @@
 		},
 	};
 
-	Vue.createApp(Vue.defineAsyncComponent(() => loadModule('./components/TestApp.vue', options))).mount(document.body);
+	const { loadModule } = window['vue3-sfc-loader'];
+
+    const TestApp = Vue.defineAsyncComponent(() => loadModule('./components/TestApp.vue', options));
+    const AnotherView = Vue.defineAsyncComponent(() => loadModule('./components/AnotherView.vue', options));
+
+	const routes = [
+	  {
+	    path: '/',
+		component: () => loadModule('./components/TestApp.vue', options)
+	  },
+	  {
+	    path: '/other',
+		component: () => loadModule('./components/AnotherView.vue', options)
+	  }
+	];
+
+	const router = VueRouter.createRouter({
+	  history: VueRouter.createWebHashHistory(),
+	  routes,
+	});
+
+	const app = Vue.createApp({template: '<router-view></router-view>'});
+	app.use(router);
+	app.mount(document.body);
 </script>

@@ -1,5 +1,8 @@
 <template>
 	<h1>It's vue.</h1>
+	<div>
+		<router-link to="/other">Another view</router-link>
+	</div>
 	<value-form v-model="value"></value-form>
 	<value-view :value="value">My value</value-view>
 </template>
