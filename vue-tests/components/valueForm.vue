@@ -1,16 +1,16 @@
 <template>
 	<div>
 		<label>Enter value:
-			Enter value: <input type="text" :value="value" @input="$emit('input', $event.target.value)"/>
+			<input type="text" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)"/>
 		</label>
 	</div>
 </template>
 
 <script>
 	export default {
-		name: 'DateStringSelector',
-		props: ['value'],
-		emits: ['input'],
+		name: 'valueForm',
+		props: ['modelValue'],
+		emits: ['update:modelValue'],
 	};
 </script>
 

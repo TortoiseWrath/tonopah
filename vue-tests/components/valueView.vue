@@ -7,7 +7,7 @@
 <script>
 	export default {
 		name: "valueView",
-		props: "value",
+		props: ["value"],
 	};
 </script>
 

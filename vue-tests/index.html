@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <meta charset="UTF-8">
-<script src="https://unpkg.com/vue@next"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue3-sfc-loader/dist/vue3-sfc-loader.js"></script>
 <title>Page Title</title>
-<div id="app"></div>
-<script>
+<script type="module">
+	import * as Vue from 'https://unpkg.com/vue@3/dist/vue.runtime.esm-browser.prod.js'
+	import { loadModule } from 'https://cdn.jsdelivr.net/npm/vue3-sfc-loader@0.7.3/dist/vue3-sfc-loader.esm.js'
+
 	const options = {
 		moduleCache: {
 			vue: Vue
 		},
 		async getFile(url) {
+			console.log('get');
 			const res = await fetch(url);
 			if (!res.ok) {
 				throw Object.assign(new Error(res.statusText + ' ' + url), {res});
@@ -23,13 +24,5 @@
 		},
 	};
 
-	const { loadModule } = window['vue3-sfc-loader'];
-
-	const app = Vue.createApp({
-		components: {
-			'test-app': Vue.defineAsyncComponent(() => loadModule('./components/TestApp.vue', options)),
-		},
-		template: '<test-app></test-app>',
-	});
-	app.mount('#app');
+	Vue.createApp(Vue.defineAsyncComponent(() => loadModule('./components/TestApp.vue', options))).mount(document.body);
 </script>

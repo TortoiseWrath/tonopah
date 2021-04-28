@@ -1,4 +1,5 @@
 <template>
+	<h1>It's vue.</h1>
 	<value-form v-model="value"></value-form>
 	<value-view :value="value">My value</value-view>
 </template>
@@ -11,13 +12,16 @@
 		name: 'TestApp',
 		data() {
 			return {
-				value: 'default'
+				value: 'default',
 			}
 		},
 		components: {
 			valueForm,
 			valueView,
-		}
+		},
+		created() {
+			console.log('app created');
+		},
 	};
 </script>
 
